@@ -1,7 +1,7 @@
 import React from "react"
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom'
 import Header from "./components/Header"
-import Main from "./components/Main"
+import StepOne from "./components/StepOne"
 import StepTwo from "./components/StepTwo"
 import StepThree from "./components/StepThree"
 import Result from "./components/Result"
@@ -12,7 +12,7 @@ function App() {
     <Header />
     <Router>
       <Switch>
-        <Route exact path="/" component={Main} />
+        <Route exact path="/" component={StepOne} />
         <Route path="/step2" component={StepTwo} />
         <Route path="/step3" component={StepThree} />
         <Route path="/result" component={Result} />

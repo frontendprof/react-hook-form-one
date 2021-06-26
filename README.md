@@ -17,3 +17,16 @@
 1. Removing unnecessary files
 2. Cleanup
 3. Wiring up to github account
+
+### Components
+
+1. App compnent
+2. Header component
+3. StepOne component
+4. StepTwo component
+5. StepThree component
+6. Result component
+7. Form component
+8. MainContainer component
+9. Input component
+10. PrimaryButton component

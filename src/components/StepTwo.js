@@ -11,6 +11,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useHistory } from 'react-router-dom'
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
+import parsePhoneNumberFromString from 'libphonenumber-js'
 
 
 
@@ -22,6 +23,16 @@ const schema=yup.object().shape({
     .email("Email should have correct format")
     .required("Email is a required field")
 })
+
+const normalizePhoneNumber=value=>{
+    const phoneNumber=parsePhoneNumberFromString(value)
+    if(!phoneNumber){
+        return value
+    }
+    return(
+        phoneNumber.formatInternational()
+    )
+}
 
 const StepTwo = () => {
     const history=useHistory();
@@ -64,6 +75,9 @@ const StepTwo = () => {
                             type="tel"
                             label="Phone Number"
                             name="phoneNumber"
+                            onChange={event=>{
+                                event.target.value=normalizePhoneNumber(event.target.value)
+                            }}
                         />
                     )
                 }

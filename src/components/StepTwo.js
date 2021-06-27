@@ -1,11 +1,79 @@
 
 import React from 'react'
+import Typography from '@material-ui/core/Typography'
+import {useForm} from "react-hook-form"
+import { MainContainer } from './MainContainer'
+import { Form } from './Form'
+import { Input } from './Input'
+import { PrimaryButton } from './PrimaryButton'
+import * as yup from 'yup';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { useHistory } from 'react-router-dom'
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Checkbox from '@material-ui/core/Checkbox';
+
+
+
+
+
+const schema=yup.object().shape({
+    email:yup
+    .string()
+    .email("Email should have correct format")
+    .required("Email is a required field")
+})
 
 const StepTwo = () => {
+    const history=useHistory();
+    const {register,handleSubmit,errors,watch }=useForm({
+        mode:"onBlur",
+        resolver:yupResolver(schema)
+    });
+
+    const hasPhone=watch("hasPhone")
+
+    const onSubmit=(data)=>{
+        history.push("/step3")
+    }
     return (
-        <div>
-            <h4>Hello from StepTwo</h4>
-        </div>
+        <MainContainer>
+            <Typography component="h2" variant="h5">😀 Step 2</Typography>
+            <Form onSubmit={handleSubmit(onSubmit)}>
+                <Input 
+                    ref={register}
+                    id="email"
+                    type="email"
+                    label="Email"
+                    name="email"
+                    required
+                    error={!!errors.email}
+                    helperText={errors?.email?.message}
+                />
+
+                <FormControlLabel 
+                    control={
+                        <Checkbox name="hasPhone" inputRef={register} color="primary" />
+                    }
+                    label="Do you have a phone?"
+                />
+                {
+                    hasPhone&&(
+                        <Input 
+                            ref={register}
+                            id="phoneNumber"
+                            type="tel"
+                            label="Phone Number"
+                            name="phoneNumber"
+                        />
+                    )
+                }
+
+
+
+                <PrimaryButton>Next</PrimaryButton>
+            </Form>
+
+        </MainContainer>
     )
 }
 

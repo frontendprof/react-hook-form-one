@@ -30,3 +30,10 @@
 8. MainContainer component
 9. Input component
 10. PrimaryButton component
+11. FileInput component
+
+### DataContext
+
+1. Creating context
+2. Creating data context provider
+3. Creating context consumer

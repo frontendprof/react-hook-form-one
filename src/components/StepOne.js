@@ -1,7 +1,6 @@
 
 import React from 'react'
 import Typography from '@material-ui/core/Typography'
-// import { makeStyles } from '@material-ui/core/styles'
 import {useForm} from "react-hook-form"
 import { MainContainer } from './MainContainer'
 import { Form } from './Form'
@@ -9,16 +8,20 @@ import { Input } from './Input'
 import { PrimaryButton } from './PrimaryButton'
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { useHistory } from 'react-router-dom'
 
 
 
 
 const schema=yup.object().shape({
-    firstName:yup.string().required("First name is required"),
+    firstName:yup.string().matches(/^([^0-9]*)$/,"First name should not contain numbers")
+    .required("First name is required"),
 
-    lastName:yup.string().required("Last name is required")
+    lastName:yup.string().matches(/^([^0-9]*)$/,"Last name should not contain numbers").required("Last name is required")
 })
 const StepOne = () => {
+
+    const history=useHistory();
 
     const {register,handleSubmit,errors}=useForm({
         mode:"onBlur",
@@ -27,7 +30,7 @@ const StepOne = () => {
     })
 
     const onSubmit=(data)=>{
-        console.log(data);
+        history.push("/step2")
     }
     return (
         <MainContainer>
@@ -40,6 +43,8 @@ const StepOne = () => {
                     id="firstName"
                     name="firstName"
                     label="First Name"
+                    error={!!errors.firstName}
+                    helperText={errors?.firstName?.message}
                 />
 
                 <Input 
@@ -48,6 +53,8 @@ const StepOne = () => {
                     id="lastName"
                     name="lastName"
                     label="Last Name"
+                    error={!!errors.lastName}
+                    helperText={errors?.lastName?.message}
                 />
 
                 <PrimaryButton>Next</PrimaryButton>

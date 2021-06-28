@@ -12,6 +12,7 @@ import { useHistory } from 'react-router-dom'
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import parsePhoneNumberFromString from 'libphonenumber-js'
+import { useData } from '../DataContext'
 
 
 
@@ -36,7 +37,9 @@ const normalizePhoneNumber=value=>{
 
 const StepTwo = () => {
     const history=useHistory();
+    const {data,setValues}=useData()
     const {register,handleSubmit,errors,watch }=useForm({
+        defaultValues:{email:data.email,hasPhone:data.hasPhone,phoneNumber:data.phoneNumber},
         mode:"onBlur",
         resolver:yupResolver(schema)
     });
@@ -45,6 +48,7 @@ const StepTwo = () => {
 
     const onSubmit=(data)=>{
         history.push("/step3")
+        setValues(data)
     }
     return (
         <MainContainer>
@@ -63,7 +67,12 @@ const StepTwo = () => {
 
                 <FormControlLabel 
                     control={
-                        <Checkbox name="hasPhone" inputRef={register} color="primary" />
+                        <Checkbox 
+                        defaultValue={data.hasPhone}
+                        defaultChecked={data.hasPhone}
+                        name="hasPhone" 
+                        inputRef={register} 
+                        color="primary" />
                     }
                     label="Do you have a phone?"
                 />

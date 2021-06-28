@@ -9,7 +9,28 @@ import Dropzone from 'react-dropzone'
 
 
 
+
+import {makeStyles} from "@material-ui/core/styles"
+
+const useStyles=makeStyles(theme=>({
+    root:{
+        marginTop:"20px",
+        padding:"10px",
+        color:"#333",
+        backgroundColor:"#eee",
+        textAlign:"center",
+        cursor:"pointer"
+    },
+    icon:{
+        marginTop:"16px",
+        fontSize:"42px",
+        color:"#888"
+    }
+}))
+
+
 export const FileInput = ({control,name}) => {
+    const classes=useStyles();
     return (
         <Controller
             control={control}
@@ -20,8 +41,8 @@ export const FileInput = ({control,name}) => {
                     <Dropzone onDrop={onChange}>
                         {
                             ({getRootProps,getInputProps})=>(
-                            <Paper variant="outlined" {...getRootProps()}>
-                                <CloudUploadOutlinedIcon />
+                            <Paper className={classes.root} variant="outlined" {...getRootProps()}>
+                                <CloudUploadOutlinedIcon className={classes.icon}/>
                                 <input name={name} onBlue={onBlur} {...getInputProps()}/>
                                 <p>Drag and drop files here, or click to select files</p>
                             </Paper>)

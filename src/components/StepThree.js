@@ -39,7 +39,7 @@ const StepThree = () => {
             <Typography component="h2" variant="h5">😀 Step 3</Typography>
             <Form onSubmit={handleSubmit(onSubmit)}>
                 <FileInput name="files" control={control}/>
-                {/* <PrimaryButton>Next</PrimaryButton> */}
+                <PrimaryButton>Next</PrimaryButton>
             </Form>
 
         </MainContainer>
